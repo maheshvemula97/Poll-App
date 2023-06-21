@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding: 30px 0px;
 }
 
 .App-logo {
@@ -35,4 +36,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+.post{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 10px;
+  padding: 8px;
 }
