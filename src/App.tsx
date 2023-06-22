@@ -1,11 +1,18 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Polllist from "./Polllist";
+import Rawjson from "./Rawjson";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Polllist />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Polllist />} />
+          <Route path="/poll/:id" element={<Rawjson />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

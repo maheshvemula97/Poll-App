@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
+import Rawjson from "./Rawjson";
 
 const columns: GridColDef[] = [
   { field: "title", headerName: "Title" },
@@ -27,9 +31,25 @@ const columns: GridColDef[] = [
 ];
 
 const PolllistGrid: React.FC<any> = ({ data, searchText }) => {
+  const navigate = useNavigate();
   const [rows, setRows] = React.useState([]);
   const [displayedRows, setDisplayedRows] = React.useState(rows);
   console.log("searchText", searchText);
+  const [seletedRow, setSeletedRow] = React.useState({});
+
+  const rowHandleEvent: GridEventListener<"rowClick"> = (
+    params // GridRowParams
+  ) => {
+    let obj = data.find((item: any) => item.objectID === params.row.id);
+    setSeletedRow(obj);
+    console.log(params.row);
+    navigate(`/poll/${params.row.id}`, { state: { obj: obj } });
+  };
+  // const navigate = useNavigate();
+
+  // const navigateToPage = () => {
+  //   navigate(Rawjson);
+  // };
 
   React.useEffect(() => {
     setRows(
@@ -63,6 +83,7 @@ const PolllistGrid: React.FC<any> = ({ data, searchText }) => {
   return (
     <Box sx={{ height: "85vh", width: "100%" }}>
       <DataGrid
+        onRowClick={rowHandleEvent}
         rows={displayedRows}
         columns={columns}
         initialState={{
