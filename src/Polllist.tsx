@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import PolllistGrid from "./PolllistGrid";
-
+import Container from "@mui/material/Container";
 interface Item {
   author: string;
   comment_text: any;
@@ -59,17 +59,18 @@ const PollList: React.FC = () => {
     <div>
       {/* Display the data */}
       {data && (
-        <div>
+        <Container fixed>
           <TextField
-            sx={{ marginBottom: "10px" }}
             id="outlined-basic"
             label="Search By Author or Title"
             variant="outlined"
+            data-testid="search"
+            sx={{ margin: "20px 0PX" }}
             onChange={(event: any) => setSearchText(event.target.value)}
           />
 
           <PolllistGrid data={data} searchText={searchText || ""} />
-        </div>
+        </Container>
       )}
     </div>
   );
