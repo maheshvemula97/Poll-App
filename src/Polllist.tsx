@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import TextField from "@mui/material/TextField";
 import PolllistGrid from "./PolllistGrid";
 
-import axios from "axios";
 interface Item {
   author: string;
   comment_text: any;
@@ -27,7 +27,6 @@ const PollList: React.FC = () => {
 
   useEffect(() => {
     fetchPollList(); // Initial call to fetch data
-
     const interval = setInterval(() => {
       setPageNumber((prevPageNumber) => prevPageNumber + 1);
     }, 10000); // 10 seconds in milliseconds
@@ -70,13 +69,6 @@ const PollList: React.FC = () => {
           />
 
           <PolllistGrid data={data} searchText={searchText || ""} />
-          {/* {data.map((item) => (
-            <div key={item.objectID} className="post">
-              <a href={item.url} target="_blank" rel="noopener noreferrer">
-                Title:{item.title}<br/>Author:{item.author}<br/>URL:{item.url}<br/>Created at:{item.created_at}<br/>Comments:{item.num_comments}
-              </a>
-            </div>
-          ))} */}
         </div>
       )}
     </div>
