@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Polllist from "./Polllist";
-import Rawjson from "./Rawjson";
+import Polllist from "./components/Polllist";
+import Rawjson from "./components/Rawjson";
 
 const App = () => {
   return (
@@ -10,7 +10,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Polllist />} />
           <Route path="/poll/:id" element={<Rawjson />} />
-          <Route path="*" element={<h1>404 Not found</h1>} />
+          <Route
+            path="*"
+            element={<h1 style={{ textAlign: "center" }}>404 Not found</h1>}
+          />
         </Routes>
       </Router>
     </div>

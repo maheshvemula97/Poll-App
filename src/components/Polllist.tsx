@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import TextField from "@mui/material/TextField";
 import PolllistGrid from "./PolllistGrid";
 import Container from "@mui/material/Container";
+
+import { useNavigate } from "react-router-dom";
 interface Item {
   author: string;
   comment_text: any;
@@ -24,7 +25,7 @@ const PollList: React.FC = () => {
   const [data, setData] = useState<Item[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [searchText, setSearchText] = useState<string>("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchPollList(); // Initial call to fetch data
     const interval = setInterval(() => {
@@ -42,24 +43,21 @@ const PollList: React.FC = () => {
 
   const fetchPollList = async () => {
     try {
-      console.log("page", pageNumber);
-      const response = await axios.get(
+      const response = await fetch(
         `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageNumber}`
       );
-      console.log(response);
-      setData((prevData) => [...prevData, ...response.data.hits]);
+      const data = await response.json();
+      setData((prevData) => [...prevData, ...data.hits]);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
   // Render your component with the fetched data
-
   return (
     <div>
       {/* Display the data */}
       {data && (
-        <Container fixed>
+        <Container fixed data-testid="pollListDetails">
           <TextField
             id="outlined-basic"
             label="Search By Author or Title"
@@ -69,7 +67,11 @@ const PollList: React.FC = () => {
             onChange={(event: any) => setSearchText(event.target.value)}
           />
 
-          <PolllistGrid data={data} searchText={searchText || ""} />
+          <PolllistGrid
+            data={data}
+            navigate={navigate}
+            searchText={searchText || ""}
+          />
         </Container>
       )}
     </div>

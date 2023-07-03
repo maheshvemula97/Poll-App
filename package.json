@@ -20,12 +20,13 @@
     "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@types/jest": "^27.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "react-scripts test --coverage --watchAll --collectCoverageFrom='src/components/**/*.{ts,tsx}'",
     "eject": "react-scripts eject",
     "coverage": "jest --coverage"
   },
